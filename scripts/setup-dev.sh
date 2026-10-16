@@ -1,9 +1,38 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+find_project_root() {
+  # 1. Try git repository root
+  if command -v git >/dev/null 2>&1 && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    git rev-parse --show-toplevel
+    return 0
+  fi
 
+  # 2. Try current working directory
+  if [ -f "${PWD}/.nvmrc" ]; then
+    echo "${PWD}"
+    return 0
+  fi
+
+  # 3. Try directory of this script
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd)"
+  if [ -f "${script_dir}/.nvmrc" ]; then
+    echo "${script_dir}"
+    return 0
+  fi
+
+  # 4. Try parent directory of this script
+  if [ -f "${script_dir}/../.nvmrc" ]; then
+    (cd "${script_dir}/.." && pwd)
+    return 0
+  fi
+
+  # Default fallback
+  echo "${PWD}"
+}
+
+PROJECT_ROOT="$(find_project_root)"
 cd "${PROJECT_ROOT}"
 
 echo "==> Setting up development environment..."
