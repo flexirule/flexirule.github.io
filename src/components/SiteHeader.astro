@@ -118,14 +118,28 @@ const isComparison = pathname.startsWith("/comparisons/");
         : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>';
     }
   };
-  const savedTheme = localStorage.getItem("flexirule-theme");
-  applyTheme(savedTheme === "light" || savedTheme === "dark" ? savedTheme : themePreference.matches ? "dark" : "light");
+  const readSavedTheme = (): "light" | "dark" | null => {
+    try {
+      const value = window.localStorage.getItem("flexirule-theme");
+      return value === "light" || value === "dark" ? value : null;
+    } catch {
+      return null;
+    }
+  };
+  const saveTheme = (theme: "light" | "dark") => {
+    try {
+      window.localStorage.setItem("flexirule-theme", theme);
+    } catch {
+      // Theme switching still works for this page when storage is unavailable.
+    }
+  };
+  applyTheme(readSavedTheme() ?? (themePreference.matches ? "dark" : "light"));
   themeButton?.addEventListener("click", () => {
     const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    localStorage.setItem("flexirule-theme", nextTheme);
+    saveTheme(nextTheme);
     applyTheme(nextTheme);
   });
   themePreference.addEventListener("change", (event) => {
-    if (!localStorage.getItem("flexirule-theme")) applyTheme(event.matches ? "dark" : "light");
+    if (!readSavedTheme()) applyTheme(event.matches ? "dark" : "light");
   });
 </script>
