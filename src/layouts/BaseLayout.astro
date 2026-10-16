@@ -1,24 +1,31 @@
 ---
-import SiteHeader from "../components/SiteHeader.astro";
+import TopHeader from "../components/TopHeader.astro";
+import Sidebar from "../components/Sidebar.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import "../styles/global.css";
 import "../styles/theme.css";
 
-interface Breadcrumb { label: string; href?: string; }
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   noindex?: boolean;
-  breadcrumbs?: Breadcrumb[];
+  breadcrumbs?: BreadcrumbItem[];
 }
+
 const {
   title,
   description,
   ogImage = "/og/flexirule-social.svg",
   noindex = false,
-  breadcrumbs = [{ label: "Home" }],
+  breadcrumbs = [],
 } = Astro.props;
+
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
 const socialImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
 const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
@@ -39,6 +46,11 @@ const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
           : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         document.documentElement.dataset.theme = initialTheme;
         document.querySelector('meta[name="theme-color"]')?.setAttribute("content", initialTheme === "dark" ? "#111111" : "#ffffff");
+
+        const savedSidebarState = localStorage.getItem("flexirule-sidebar-collapsed");
+        if (savedSidebarState === "true") {
+          document.documentElement.classList.add("sidebar-collapsed");
+        }
       } catch {
         document.documentElement.dataset.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       }
@@ -68,10 +80,13 @@ const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <div class="site-shell">
-      <SiteHeader breadcrumbs={breadcrumbs} />
-      <div class="site-content-shell">
-        <main id="main-content"><slot /></main>
+    <div class="site-app-shell">
+      <Sidebar />
+      <div class="site-main-layout">
+        <TopHeader breadcrumbs={breadcrumbs} />
+        <main id="main-content" class="site-content">
+          <slot />
+        </main>
         <SiteFooter />
       </div>
     </div>
