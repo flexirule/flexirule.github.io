@@ -2,6 +2,7 @@
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import "../styles/global.css";
+import "../styles/erpnext-inspired.css";
 
 interface Breadcrumb { label: string; href?: string; }
 interface Props {
@@ -37,7 +38,7 @@ const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
           ? savedTheme
           : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         document.documentElement.dataset.theme = initialTheme;
-        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", initialTheme === "dark" ? "#10111b" : "#ffffff");
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", initialTheme === "dark" ? "#111111" : "#ffffff");
       } catch {
         document.documentElement.dataset.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       }
