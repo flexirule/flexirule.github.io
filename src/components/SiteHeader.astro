@@ -4,6 +4,15 @@ interface Props { breadcrumbs?: Breadcrumb[]; }
 const { breadcrumbs = [{ label: "Home" }] } = Astro.props;
 const pathname = Astro.url.pathname;
 const isComparisons = pathname.startsWith("/comparisons");
+
+// Prepend flexirule to breadcrumbs array
+const allBreadcrumbs = [
+  { label: "flexirule", href: "/" },
+  ...breadcrumbs.map((b) => ({
+    ...b,
+    label: b.label.toLowerCase(),
+  })),
+];
 ---
 
 <header class="site-header" data-site-header>
@@ -70,9 +79,9 @@ const isComparisons = pathname.startsWith("/comparisons");
   <div class="container breadcrumb-inner">
     <nav aria-label="Breadcrumb">
       <ol class="page-breadcrumbs">
-        {breadcrumbs.map((item, index) => (
+        {allBreadcrumbs.map((item, index) => (
           <li>
-            {item.href && index < breadcrumbs.length - 1
+            {item.href && index < allBreadcrumbs.length - 1
               ? <a href={item.href}>{item.label}</a>
               : <span aria-current="page">{item.label}</span>}
           </li>
