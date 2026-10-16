@@ -28,8 +28,20 @@ const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#ffffff" />
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem("flexirule-theme");
+        const initialTheme = savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = initialTheme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", initialTheme === "dark" ? "#10111b" : "#ffffff");
+      } catch {
+        document.documentElement.dataset.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+    </script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content="FlexiRule contributors" />
