@@ -477,3 +477,110 @@ body { color: var(--text-primary); }
 .theme-toggle svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; }
 .theme-toggle-label { white-space: nowrap; }
 @media (max-width: 700px) { .theme-toggle { min-width: 36px; padding-inline: 9px; } .theme-toggle-label { display: none; } }
+
+
+/* Complete theme coverage for page sections and comparison/article content. */
+:root[data-theme="dark"] {
+  --ink: #f0f1fa;
+  --muted: #b0b4c9;
+  --line: #303347;
+  --soft: #1b1d2b;
+  --pale-blue: #22233b;
+}
+:root[data-theme="dark"] .intro-strip,
+:root[data-theme="dark"] .section-comparisons,
+:root[data-theme="dark"] .section-fit,
+:root[data-theme="dark"] .comparisons-library,
+:root[data-theme="dark"] .comparison-body,
+:root[data-theme="dark"] .comparison-article,
+:root[data-theme="dark"] .article-section,
+:root[data-theme="dark"] .site-content-shell {
+  background-color: var(--page-bg);
+  color: var(--text-primary);
+}
+:root[data-theme="dark"] .section-process,
+:root[data-theme="dark"] .fit-panel,
+:root[data-theme="dark"] .comparison-principle,
+:root[data-theme="dark"] .comparison-aside,
+:root[data-theme="dark"] .aside-note,
+:root[data-theme="dark"] .takeaway-panel,
+:root[data-theme="dark"] .article-index,
+:root[data-theme="dark"] .trace-preview,
+:root[data-theme="dark"] .comparison-card,
+:root[data-theme="dark"] .feature-card,
+:root[data-theme="dark"] .step-symbol {
+  background-color: var(--surface-muted);
+  color: var(--text-primary);
+  border-color: var(--border-subtle);
+}
+:root[data-theme="dark"] .intro-grid h2,
+:root[data-theme="dark"] .section-heading h2,
+:root[data-theme="dark"] .process-copy h2,
+:root[data-theme="dark"] .fit-panel h2,
+:root[data-theme="dark"] .section-heading-row h2,
+:root[data-theme="dark"] .page-hero h1,
+:root[data-theme="dark"] .comparison-hero h1,
+:root[data-theme="dark"] .article-section h2,
+:root[data-theme="dark"] .comparison-card h2,
+:root[data-theme="dark"] .process-step h3,
+:root[data-theme="dark"] .fit-points b,
+:root[data-theme="dark"] .comparison-principle h2,
+:root[data-theme="dark"] .takeaway-panel h2 {
+  color: var(--text-primary);
+}
+:root[data-theme="dark"] .hero-lede,
+:root[data-theme="dark"] .intro-grid > div > p,
+:root[data-theme="dark"] .section-heading > p:last-child,
+:root[data-theme="dark"] .feature-card > p:not(.feature-label),
+:root[data-theme="dark"] .process-copy > p:not(.section-kicker),
+:root[data-theme="dark"] .process-step p,
+:root[data-theme="dark"] .fit-panel > div:first-child > p:last-child,
+:root[data-theme="dark"] .fit-points small,
+:root[data-theme="dark"] .comparison-card p,
+:root[data-theme="dark"] .page-hero-inner > p:not(.section-kicker),
+:root[data-theme="dark"] .comparison-intro,
+:root[data-theme="dark"] .article-section > p:not(.article-index),
+:root[data-theme="dark"] .comparison-bullets li,
+:root[data-theme="dark"] .takeaway-panel > p:not(.section-kicker),
+:root[data-theme="dark"] .comparison-aside nav a,
+:root[data-theme="dark"] .aside-note p {
+  color: var(--text-secondary);
+}
+:root[data-theme="dark"] .page-hero,
+:root[data-theme="dark"] .comparison-hero {
+  background: linear-gradient(180deg, #141622, #10111b);
+  color: var(--text-primary);
+}
+:root[data-theme="dark"] .comparison-body-grid,
+:root[data-theme="dark"] .article-section,
+:root[data-theme="dark"] .intro-strip,
+:root[data-theme="dark"] .process-steps,
+:root[data-theme="dark"] .process-step,
+:root[data-theme="dark"] .hero-bottom,
+:root[data-theme="dark"] .trace-row {
+  border-color: var(--border-subtle);
+}
+:root[data-theme="dark"] .trace-row-active,
+:root[data-theme="dark"] .mini-flow-node,
+:root[data-theme="dark"] .branch-label {
+  background-color: #25283b;
+  color: var(--text-primary);
+}
+:root[data-theme="dark"] .sidebar-sub-link { color: var(--text-secondary); }
+:root[data-theme="dark"] .topbar-breadcrumb a { color: var(--text-secondary); }
+:root[data-theme="dark"] .breadcrumb-separator { color: #666b84; }
+:root[data-theme="dark"] .section-features { background: var(--page-bg); }
+:root[data-theme="dark"] .feature-card-large,
+:root[data-theme="dark"] .feature-card-wide {
+  background: linear-gradient(145deg, #1b1d2b, #171925);
+}
+:root[data-theme="dark"] .fit-panel {
+  background: linear-gradient(115deg, #1b1d2b, #171925 65%);
+}
+:root[data-theme="dark"] .final-cta { background: #090a12; }
+:root[data-theme="dark"] .button-secondary:hover,
+:root[data-theme="dark"] .theme-toggle:hover,
+:root[data-theme="dark"] .sidebar-toggle:hover,
+:root[data-theme="dark"] .sidebar-close:hover {
+  border-color: #555987;
+}
