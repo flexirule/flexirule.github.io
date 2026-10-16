@@ -73,6 +73,10 @@ const isComparison = pathname.startsWith("/comparisons/");
     </nav>
   </div>
   <div class="topbar-actions">
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch to dark theme" title="Switch theme">
+      <svg data-theme-icon viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+      <span class="theme-toggle-label" data-theme-label>Light theme</span>
+    </button>
     <span class="topbar-caption">Business automation, made visible</span>
     <a class="button button-small button-primary topbar-cta" href="https://github.com/Sendipad/flexirule#installation">Get started <span aria-hidden="true">↗</span></a>
   </div>
@@ -95,4 +99,32 @@ const isComparison = pathname.startsWith("/comparisons/");
   sidebar?.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => link.addEventListener("click", () => setSidebarOpen(false)));
   document.addEventListener("keydown", (event) => { if (event.key === "Escape") setSidebarOpen(false); });
   window.matchMedia("(min-width: 1101px)").addEventListener("change", (event) => { if (event.matches) setSidebarOpen(false); });
+
+  // Use the OS preference until the visitor explicitly chooses a theme.
+  const themeButton = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+  const themeLabel = document.querySelector<HTMLElement>("[data-theme-label]");
+  const themeIcon = document.querySelector<SVGElement>("[data-theme-icon]");
+  const themePreference = window.matchMedia("(prefers-color-scheme: dark)");
+  const applyTheme = (theme: "light" | "dark") => {
+    document.documentElement.dataset.theme = theme;
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    themeButton?.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
+    themeButton?.setAttribute("title", `Switch to ${nextTheme} theme`);
+    if (themeLabel) themeLabel.textContent = theme === "dark" ? "Dark theme" : "Light theme";
+    if (themeIcon) {
+      themeIcon.innerHTML = theme === "dark"
+        ? '<path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>'
+        : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>';
+    }
+  };
+  const savedTheme = localStorage.getItem("flexirule-theme");
+  applyTheme(savedTheme === "light" || savedTheme === "dark" ? savedTheme : themePreference.matches ? "dark" : "light");
+  themeButton?.addEventListener("click", () => {
+    const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+    localStorage.setItem("flexirule-theme", nextTheme);
+    applyTheme(nextTheme);
+  });
+  themePreference.addEventListener("change", (event) => {
+    if (!localStorage.getItem("flexirule-theme")) applyTheme(event.matches ? "dark" : "light");
+  });
 </script>
