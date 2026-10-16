@@ -1,5 +1,40 @@
 ---
 const year = new Date().getFullYear();
+
+const footerGroups = [
+  {
+    title: "Explore",
+    links: [
+      { label: "Features", href: "/#features" },
+      { label: "How it works", href: "/#how-it-works" },
+      { label: "Comparisons", href: "/comparisons/" },
+    ],
+  },
+  {
+    title: "Product",
+    links: [
+      { label: "Business workflows", href: "/solutions/business-workflows/" },
+      { label: "Developer experience", href: "/solutions/developer-experience/" },
+      { label: "Architecture choices", href: "/solutions/architecture-choices/" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Documentation", href: "https://github.com/Sendipad/flexirule-docs", external: true },
+      { label: "Source code", href: "https://github.com/Sendipad/flexirule", external: true },
+      { label: "Report an issue", href: "https://github.com/Sendipad/flexirule/issues", external: true },
+    ],
+  },
+  {
+    title: "Community",
+    links: [
+      { label: "GitHub repository", href: "https://github.com/Sendipad/flexirule", external: true },
+      { label: "Open issues", href: "https://github.com/Sendipad/flexirule/issues", external: true },
+      { label: "Contributing", href: "https://github.com/Sendipad/flexirule/blob/develop/CONTRIBUTING.md", external: true },
+    ],
+  },
+];
 ---
 
 <footer class="site-footer">
@@ -11,18 +46,20 @@ const year = new Date().getFullYear();
       </a>
       <p>Make business logic visible. Build, understand, and evolve automation for Frappe and ERPNext.</p>
     </div>
-    <div class="footer-column">
-      <h2>Explore</h2>
-      <a href="/#features">Features</a>
-      <a href="/#how-it-works">How it works</a>
-      <a href="/comparisons/">Comparisons</a>
-    </div>
-    <div class="footer-column">
-      <h2>Resources</h2>
-      <a href="https://github.com/Sendipad/flexirule">Source code <span aria-hidden="true">↗</span></a>
-      <a href="https://github.com/Sendipad/flexirule-docs">Documentation <span aria-hidden="true">↗</span></a>
-      <a href="https://github.com/Sendipad/flexirule/issues">Report an issue <span aria-hidden="true">↗</span></a>
-    </div>
+    {footerGroups.map((group) => (
+      <nav class="footer-column" aria-label={group.title}>
+        <h2>{group.title}</h2>
+        {group.links.map((link) => (
+          <a
+            href={link.href}
+            {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            {link.label}
+            {link.external && <span aria-hidden="true"> ↗</span>}
+          </a>
+        ))}
+      </nav>
+    ))}
   </div>
   <div class="container footer-bottom">
     <span>© {year} FlexiRule contributors.</span>
