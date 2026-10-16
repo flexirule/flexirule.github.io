@@ -107,6 +107,7 @@ const isComparison = pathname.startsWith("/comparisons/");
   const themePreference = window.matchMedia("(prefers-color-scheme: dark)");
   const applyTheme = (theme: "light" | "dark") => {
     document.documentElement.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#10111b" : "#ffffff");
     const nextTheme = theme === "dark" ? "light" : "dark";
     themeButton?.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
     themeButton?.setAttribute("title", `Switch to ${nextTheme} theme`);
