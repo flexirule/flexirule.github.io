@@ -3,13 +3,21 @@ import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import "../styles/global.css";
 
+interface Breadcrumb { label: string; href?: string; }
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   noindex?: boolean;
+  breadcrumbs?: Breadcrumb[];
 }
-const { title, description, ogImage = "/og/flexirule-social.svg", noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = "/og/flexirule-social.svg",
+  noindex = false,
+  breadcrumbs = [{ label: "Home" }],
+} = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
 const socialImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
 const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
@@ -44,8 +52,12 @@ const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <SiteHeader />
-    <main id="main-content"><slot /></main>
-    <SiteFooter />
+    <div class="site-shell">
+      <SiteHeader breadcrumbs={breadcrumbs} />
+      <div class="site-content-shell">
+        <main id="main-content"><slot /></main>
+        <SiteFooter />
+      </div>
+    </div>
   </body>
 </html>
