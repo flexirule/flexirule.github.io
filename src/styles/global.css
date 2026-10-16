@@ -539,7 +539,10 @@ html.sidebar-expanded-layout .site-main-layout {
     color: var(--text-secondary);
   }
 
-  .site-sidebar .nav-group-summary,
+  .site-sidebar .nav-group-summary {
+    color: var(--text-primary);
+  }
+
   .site-sidebar .sub-nav-link {
     color: var(--text-secondary);
   }
