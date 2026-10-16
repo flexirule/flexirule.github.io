@@ -64,7 +64,7 @@ const isComparisons = pathname.startsWith("/comparisons");
 </header>
 
 
-<button class="mobile-nav-backdrop" type="button" data-mobile-nav-backdrop aria-label="Close navigation"></button>
+<button class="mobile-nav-backdrop" type="button" data-mobile-nav-backdrop aria-label="Close navigation" tabindex="-1"></button>
 
 <div class="breadcrumb-bar">
   <div class="container breadcrumb-inner">
@@ -91,7 +91,7 @@ const isComparisons = pathname.startsWith("/comparisons");
     document.body.classList.remove("mobile-nav-open");
     navToggle?.setAttribute("aria-expanded", "false");
     navToggle?.setAttribute("aria-label", "Open navigation");
-    if (restoreFocus) navToggle?.focus();
+    if (restoreFocus && !window.matchMedia("(min-width: 1025px)").matches) navToggle?.focus();
   };
   navToggle?.addEventListener("click", () => {
     const isOpen = navToggle.getAttribute("aria-expanded") === "true";
