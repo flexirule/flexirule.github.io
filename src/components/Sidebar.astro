@@ -66,8 +66,8 @@ const navGroups: NavGroup[] = [
         class="sidebar-pin-btn desktop-only"
         type="button"
         data-sidebar-pin
-        aria-label="Pin sidebar"
-        title="Pin sidebar open"
+        aria-label="Toggle sidebar collapse"
+        title="Toggle sidebar collapse"
       >
         <svg class="pin-icon-unpinned" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 17v5M9 2h6l-1 5 4 4v2H6v-2l4-4-1-5z" /></svg>
         <svg class="pin-icon-pinned" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="currentColor"><path d="M12 17v5M9 2h6l-1 5 4 4v2H6v-2l4-4-1-5z" /></svg>
@@ -145,21 +145,21 @@ const navGroups: NavGroup[] = [
   const closeBtn = document.querySelector<HTMLButtonElement>("[data-sidebar-close]");
   const pinBtn = document.querySelector<HTMLButtonElement>("[data-sidebar-pin]");
 
-  // Restore pin state on desktop
+  // Restore collapsed state on desktop
   try {
-    const isPinned = localStorage.getItem("flexirule-sidebar-pinned") === "true";
-    if (isPinned && sidebar) {
-      sidebar.classList.add("is-pinned");
-      document.documentElement.classList.add("sidebar-pinned-layout");
+    const isCollapsed = localStorage.getItem("flexirule-sidebar-collapsed") === "true";
+    if (isCollapsed && sidebar) {
+      sidebar.classList.add("is-collapsed");
+      document.documentElement.classList.add("sidebar-collapsed-layout");
     }
   } catch {}
 
   pinBtn?.addEventListener("click", () => {
     if (!sidebar) return;
-    const pinned = sidebar.classList.toggle("is-pinned");
-    document.documentElement.classList.toggle("sidebar-pinned-layout", pinned);
+    const collapsed = sidebar.classList.toggle("is-collapsed");
+    document.documentElement.classList.toggle("sidebar-collapsed-layout", collapsed);
     try {
-      localStorage.setItem("flexirule-sidebar-pinned", String(pinned));
+      localStorage.setItem("flexirule-sidebar-collapsed", String(collapsed));
     } catch {}
   });
 
