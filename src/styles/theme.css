@@ -18,6 +18,17 @@
   --button-bg: #171717;
   --button-text: #ffffff;
   --card-shadow: 0 22px 60px rgb(0 0 0 / 7%);
+  --radius: 8px;
+  --surface-muted: var(--surface-soft);
+  --surface-sidebar: var(--surface-soft);
+  --blue: var(--brand-accent);
+  --blue-deep: color-mix(in srgb, var(--brand-accent) 82%, #000);
+  --red: #c94d4d;
+  --ink: var(--text-primary);
+  --muted: var(--text-secondary);
+  --line: var(--border-subtle);
+  --soft: var(--surface-soft);
+  --pale-blue: var(--brand-accent-soft);
   --ease-out: cubic-bezier(.2, .75, .25, 1);
   --section-space: clamp(72px, 8.5vw, 124px);
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -53,6 +64,7 @@
   --button-bg: #f4f4f2;
   --button-text: #151515;
   --card-shadow: 0 22px 65px rgb(0 0 0 / 24%);
+  --red: #f08080;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 132px; }
@@ -730,3 +742,60 @@ html.motion-ready [data-reveal="visible"] { opacity: 1; transform: translateY(0)
 .feature-card[data-reveal="pending"]:nth-child(4) { transition-delay: 180ms; }
 @keyframes gentle-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes menu-enter { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+
+/* Theme-aware colors for the illustrative RuleFlow preview. */
+.window-dots i { background: var(--border-strong); }
+.builder-title, .node-copy b, .floating-note b, .sidebar-bottom { color: var(--text-primary); }
+.builder-menu, .sidebar-cap, .side-row, .sidebar-bottom small,
+.canvas-label, .canvas-label span, .canvas-legend, .node-copy small,
+.floating-note small, .builder-status { color: var(--text-secondary); }
+.builder-topbar, .builder-status { border-color: var(--border-subtle); }
+.builder-sidebar { background: var(--surface-soft); border-right-color: var(--border-subtle); }
+.side-row.active { background: var(--brand-accent-soft); color: var(--brand-accent); }
+.flow-canvas {
+  background-color: var(--surface);
+  background-image: radial-gradient(color-mix(in srgb, var(--border-subtle) 78%, transparent) 1px, transparent 1px);
+}
+.flow-node { border-color: var(--border-subtle); background: var(--surface); color: var(--text-primary); }
+.node-condition {
+  border-color: color-mix(in srgb, var(--brand-accent) 62%, var(--border-subtle));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--brand-accent) 10%, transparent);
+}
+.branch-label { background: var(--surface); }
+.line { border-color: color-mix(in srgb, var(--brand-accent) 46%, var(--border-subtle)); }
+.line-a, .line-b, .line-d { border-left-color: color-mix(in srgb, var(--brand-accent) 46%, var(--border-subtle)); }
+.line-c { border-top-color: color-mix(in srgb, var(--brand-accent) 46%, var(--border-subtle)); }
+.line-e { border-right-color: color-mix(in srgb, var(--brand-accent) 46%, var(--border-subtle)); }
+.symbol-trigger, .symbol-action, .trace-icon {
+  background: var(--brand-accent-soft);
+  color: var(--brand-accent);
+}
+.symbol-condition, .reuse-icon {
+  background: color-mix(in srgb, #d85e5e 14%, var(--surface));
+  color: #d85e5e;
+}
+.symbol-end, .node-status, .node-check, .builder-status > span:first-child {
+  color: #32956d;
+}
+.node-status, .node-check {
+  background: color-mix(in srgb, #32956d 15%, var(--surface));
+}
+.saved-pill {
+  color: #32956d;
+  background: color-mix(in srgb, #32956d 14%, var(--surface));
+}
+.symbol-end { background: color-mix(in srgb, #32956d 14%, var(--surface)); }
+.avatar-dot {
+  color: #d85e5e;
+  background: color-mix(in srgb, #d85e5e 14%, var(--surface));
+}
+.mini-mark { background: var(--brand-accent); color: var(--button-text); }
+.mini-flow-node {
+  border-color: var(--border-subtle);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+.trace-preview { background: var(--surface); border-color: var(--border-subtle); }
+.trace-row { border-bottom-color: var(--border-subtle); color: var(--text-secondary); }
+.trace-row-active { background: var(--surface-warm); color: var(--text-primary); }
