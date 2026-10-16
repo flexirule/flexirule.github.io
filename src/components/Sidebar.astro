@@ -165,12 +165,13 @@ const navGroups: NavGroup[] = [
 
   const closeMobileSidebar = () => {
     document.body.classList.remove("mobile-sidebar-open");
+    document.documentElement.classList.remove("mobile-sidebar-open");
   };
 
   backdrop?.addEventListener("click", closeMobileSidebar);
   closeBtn?.addEventListener("click", closeMobileSidebar);
 
-  sidebar?.querySelectorAll<HTMLAnchorElement>(".sub-nav-link").forEach((link) => {
+  sidebar?.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
     link.addEventListener("click", () => {
       closeMobileSidebar();
     });

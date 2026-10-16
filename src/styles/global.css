@@ -91,19 +91,20 @@ html.sidebar-pinned-layout .site-main-layout {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--surface, #fff);
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
   color: var(--text-primary);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  border-radius: 6px;
+  flex-shrink: 0;
+  padding: 0;
+  transition: background 0.15s ease;
 }
 
 .sidebar-toggle-btn:hover {
   background: var(--surface-muted, #f8f8ff);
-  border-color: #c0c4d9;
 }
 
 .header-breadcrumbs {
@@ -195,9 +196,15 @@ html.sidebar-pinned-layout .site-main-layout {
 }
 
 @media (min-width: 861px) {
-  .site-sidebar:hover,
-  .site-sidebar:focus-within,
   .site-sidebar.is-pinned {
+    width: var(--sidebar-width);
+    box-shadow: 6px 0 20px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@media (min-width: 861px) and (hover: hover) {
+  .site-sidebar:hover,
+  .site-sidebar:focus-within {
     width: var(--sidebar-width);
     box-shadow: 6px 0 20px rgba(0, 0, 0, 0.08);
   }
@@ -487,8 +494,10 @@ html.sidebar-pinned-layout .site-main-layout {
     display: none !important;
   }
 
-  body.mobile-sidebar-open {
-    overflow: hidden;
+  body.mobile-sidebar-open,
+  html.mobile-sidebar-open {
+    overflow: hidden !important;
+    touch-action: none;
   }
 
   .site-main-layout {

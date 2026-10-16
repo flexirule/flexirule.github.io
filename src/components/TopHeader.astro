@@ -80,7 +80,8 @@ if (breadcrumbs.length > 0) {
   const mobileToggle = document.querySelector<HTMLButtonElement>("[data-mobile-sidebar-toggle]");
 
   mobileToggle?.addEventListener("click", () => {
-    document.body.classList.toggle("mobile-sidebar-open");
+    const isOpen = document.body.classList.toggle("mobile-sidebar-open");
+    document.documentElement.classList.toggle("mobile-sidebar-open", isOpen);
   });
 
   const themePreference = window.matchMedia("(prefers-color-scheme: dark)");
