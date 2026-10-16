@@ -393,7 +393,7 @@ a { color: inherit; }
     border: 1px solid var(--border-subtle); border-radius: 7px; box-shadow: none;
     animation: none;
   }
-  .nav-actions { grid-column: 1 / 3; grid-row: 2; justify-content: flex-start; padding-top: 12px; display: none; }
+  .nav-actions { grid-column: 1 / -1; grid-row: 3; justify-content: flex-start; padding-top: 12px; display: none; }
   body.mobile-nav-open .nav-actions { display: flex; }
   .hero-grid { grid-template-columns: 1fr; max-width: 780px; }
   .hero-copy { max-width: 720px; }
