@@ -47,11 +47,11 @@ if (breadcrumbs.length > 0) {
 <header class="top-header" data-top-header>
   <div class="top-header-left">
     <button
-      class="sidebar-toggle-btn mobile-only"
+      class="sidebar-toggle-btn"
       type="button"
-      data-mobile-sidebar-toggle
-      aria-label="Toggle Navigation Drawer"
-      title="Toggle Navigation Drawer"
+      data-sidebar-toggle
+      aria-label="Toggle Navigation Menu"
+      title="Toggle Navigation Menu"
     >
       <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 17h16" /></svg>
     </button>
@@ -77,10 +77,22 @@ if (breadcrumbs.length > 0) {
 </header>
 
 <script>
-  const mobileToggle = document.querySelector<HTMLButtonElement>("[data-mobile-sidebar-toggle]");
+  const toggleBtn = document.querySelector<HTMLButtonElement>("[data-sidebar-toggle]");
 
-  mobileToggle?.addEventListener("click", () => {
-    document.body.classList.toggle("mobile-sidebar-open");
+  toggleBtn?.addEventListener("click", () => {
+    if (window.innerWidth <= 860) {
+      const isOpen = document.body.classList.toggle("mobile-sidebar-open");
+      document.documentElement.classList.toggle("mobile-sidebar-open", isOpen);
+    } else {
+      const sidebar = document.querySelector<HTMLElement>("[data-site-sidebar]");
+      if (sidebar) {
+        const expanded = sidebar.classList.toggle("is-expanded");
+        document.documentElement.classList.toggle("sidebar-expanded-layout", expanded);
+        try {
+          localStorage.setItem("flexirule-sidebar-expanded", String(expanded));
+        } catch {}
+      }
+    }
   });
 
   const themePreference = window.matchMedia("(prefers-color-scheme: dark)");
