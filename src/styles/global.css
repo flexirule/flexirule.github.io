@@ -17,18 +17,7 @@ img { display: block; max-width: 100%; }
 .skip-link { position: fixed; z-index: 1000; top: 12px; left: 12px; transform: translateY(-160%); padding: 10px 14px; border-radius: 10px; background: white; box-shadow: 0 18px 55px #14174114; }
 .skip-link:focus { transform: translateY(0); }
 
-.site-header { position: sticky; z-index: 50; top: 0; background: #fffffff0; border-bottom: 1px solid #e8e9f2d9; backdrop-filter: blur(18px); }
-.header-inner { min-height: 82px; display: flex; align-items: center; gap: 36px; }
-.brand { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 9px; }
-.brand img { object-fit: contain; }
-.brand-word { color: #131526; font-size: 23px; font-weight: 800; letter-spacing: -1.15px; }
-.brand-word span { color: var(--blue); }
-.desktop-nav { display: flex; align-items: center; gap: clamp(18px, 2.6vw, 34px); margin-left: auto; }
-.desktop-nav a, .header-github { color: #5c6075; font-size: 13px; font-weight: 650; transition: color .18s ease; }
-.desktop-nav a:hover, .header-github:hover { color: var(--blue); }
-.header-actions { display: flex; align-items: center; gap: 20px; }
-.header-github span { color: var(--blue); }
-.mobile-menu { display: none; }
+
 .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 0 21px; border: 1px solid transparent; border-radius: 10px; font-size: 13px; font-weight: 700; line-height: 1.2; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
 .button:hover { transform: translateY(-2px); }
 .button-primary { color: #fff; background: var(--blue); box-shadow: 0 8px 18px #211bff2e; }
