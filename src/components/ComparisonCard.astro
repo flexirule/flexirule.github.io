@@ -1,0 +1,17 @@
+---
+interface Props {
+  slug: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+}
+
+const { slug, eyebrow, title, description } = Astro.props;
+---
+
+<a class="comparison-card" href={`/comparisons/${slug}/`}>
+  <span class="card-eyebrow">{eyebrow}</span>
+  <h2>{title}</h2>
+  <p>{description}</p>
+  <span class="card-link">Read the comparison <span aria-hidden="true">→</span></span>
+</a>

@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ComparisonCard from "../../components/ComparisonCard.astro";
+import { comparisons } from "../../data/comparisons";
+---
+
+<BaseLayout
+  title="FlexiRule comparisons"
+  description="Explore practical comparisons showing how FlexiRule fits alongside common approaches to business automation in Frappe and ERPNext."
+>
+  <section class="page-hero">
+    <div class="container page-hero-inner">
+      <p class="section-kicker">COMPARISONS</p>
+      <h1>Choose the right tool<br /><span class="text-gradient">for the work.</span></h1>
+      <p>Every approach has trade-offs. Explore where visual business orchestration can help—and where normal application code remains the better fit.</p>
+      <div class="breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span>Comparisons</span></div>
+    </div>
+  </section>
+  <section class="section comparisons-library">
+    <div class="container">
+      <div class="comparison-grid comparison-grid-library">
+        {comparisons.map((comparison) => (
+          <ComparisonCard slug={comparison.slug} eyebrow={comparison.eyebrow} title={comparison.title} description={comparison.description} />
+        ))}
+      </div>
+      <div class="comparison-principle">
+        <span class="principle-mark">i</span>
+        <p><b>Our principle:</b> FlexiRule is not a universal replacement for custom code or native Frappe extension points. We aim to explain the trade-offs so teams can make an informed architecture decision.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
