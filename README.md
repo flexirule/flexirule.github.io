@@ -4,7 +4,7 @@ The source for the FlexiRule public marketing website, built with Astro and inte
 
 ## Stack
 
-- Astro 7 + TypeScript 5.9 (kept within the supported peer range of `@astrojs/check`)
+- Astro 7.4.0 + TypeScript 5.9 (kept within the supported peer range of `@astrojs/check`)
 - Statically generated HTML with a data-driven sitemap endpoint
 - Custom FlexiRule styling; no off-the-shelf marketing theme
 - GitHub Actions for pull-request validation and GitHub Pages deployment
