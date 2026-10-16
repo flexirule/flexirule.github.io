@@ -1,0 +1,20 @@
+{
+  "name": "flexirule-website",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "FlexiRule product marketing website built with Astro",
+  "engines": { "node": ">=22.22.0" },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/check": "0.9.5",
+    "@astrojs/sitemap": "3.6.0",
+    "astro": "7.4.0",
+    "typescript": "6.0.3"
+  }
+}

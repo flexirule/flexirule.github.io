@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">FlexiRule — Visual business automation for Frappe and ERPNext</title>
+  <desc id="desc">A FlexiRule social card with an abstract connected workflow illustration.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#080a18"/><stop offset="1" stop-color="#111b45"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2727ff"/><stop offset="1" stop-color="#1011c9"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1060" cy="80" r="250" fill="#2626ff" opacity=".12"/>
+  <circle cx="1000" cy="630" r="250" fill="#ff2525" opacity=".08"/>
+  <g transform="translate(770 112)">
+    <path d="M55 152 H173 Q204 152 204 183 V230 Q204 261 173 261 H104 M104 261 H55 Q24 261 24 292 V342 Q24 373 55 373 H174" fill="none" stroke="#777cff" stroke-width="4" stroke-linecap="round"/>
+    <rect x="0" y="120" width="118" height="64" rx="15" fill="#171e45" stroke="#696eff"/>
+    <rect x="147" y="205" width="118" height="64" rx="15" fill="#171e45" stroke="#696eff"/>
+    <rect x="118" y="342" width="118" height="64" rx="15" fill="#171e45" stroke="#696eff"/>
+    <circle cx="22" cy="152" r="8" fill="#ff2525"/><circle cx="204" cy="237" r="8" fill="#ff2525"/><circle cx="174" cy="373" r="8" fill="#ff2525"/>
+  </g>
+  <text x="84" y="90" fill="#a7a9ff" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="5">FLEXIRULE</text>
+  <text x="80" y="226" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="66" font-weight="750" letter-spacing="-2">Make business</text>
+  <text x="80" y="302" fill="#fff" font-family="Inter,Arial,sans-serif" font-size="66" font-weight="750" letter-spacing="-2">logic visible.</text>
+  <text x="84" y="365" fill="#c7c9df" font-family="Inter,Arial,sans-serif" font-size="27">Visual orchestration for Frappe and ERPNext.</text>
+  <rect x="84" y="424" width="258" height="3" rx="1.5" fill="#ff2525"/>
+  <text x="84" y="475" fill="#aeb2d4" font-family="Inter,Arial,sans-serif" font-size="20">Declarative automation · Reusable processes · Execution tracing</text>
+</svg>

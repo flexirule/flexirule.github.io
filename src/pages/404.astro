@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Page not found" description="The page you're looking for could not be found." noindex={true}>
+  <section class="page-hero not-found">
+    <div class="container page-hero-inner">
+      <p class="section-kicker">404 / PAGE NOT FOUND</p>
+      <h1>This path ends<br /><span class="text-gradient">here.</span></h1>
+      <p>The page may have moved, or the link may be outdated.</p>
+      <a class="button button-primary" href="/">Back to FlexiRule home <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+</BaseLayout>
