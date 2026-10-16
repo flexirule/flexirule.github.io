@@ -23,13 +23,13 @@ This report documents the verification of the FlexiRule website across all targe
 ### 1. Astro Check & Typecheck
 ```
 npm run check
-Result: 0 errors, 0 warnings, 0 hints across 13 Astro files.
+Result: 0 errors, 0 warnings, 0 hints across 15 Astro files.
 ```
 
 ### 2. Static Build Verification
 ```
 npm run build
-Result: 5 static HTML pages generated cleanly in dist/ in ~580ms.
+Result: 5 static HTML pages generated cleanly in dist/ in ~900ms.
 Routes generated:
   - /404.html
   - /comparisons/flexirule-vs-server-scripts/index.html
@@ -53,6 +53,8 @@ Using Playwright (`scripts/verify-interactions.js`), the following interactive c
 
 | Component / Interaction | Status | Observations |
 | :--- | :---: | :--- |
+| **Page Header Text Breadcrumbs** | PASS | Displays `flexirule > ...` text path with `>` separator matching ERPNext reference style. |
+| **Sticky Side Menu Toggle** | PASS | Expands and collapses side navigation menu smoothly on desktop and mobile viewports. Captured screenshots of open & collapsed states. |
 | **Dark / Light Theme Toggle** | PASS | Successfully switches `document.documentElement.dataset.theme` between `light` and `dark` and persists choice. |
 | **Header Navigation Dropdowns** | PASS | `<details>` dropdowns open and close on click and keyboard Escape. |
 | **FAQ Accordions** | PASS | Collapsible details/summary accordions expand/collapse smoothly. |
@@ -62,27 +64,28 @@ Using Playwright (`scripts/verify-interactions.js`), the following interactive c
 ---
 
 ## Screenshot Artifacts
-Screenshots were captured for all routes at all 5 viewports before ("baseline") and after ("after") refactoring, as well as reference screenshots from `https://frappe.io/erpnext/version-16`:
+Screenshots were captured for all routes at all 5 viewports before ("baseline") and after ("after") refactoring, including explicit open/collapsed side menu states, as well as reference screenshots from `https://frappe.io/erpnext/version-16`:
 
 - **Baseline location**: `docs/screenshots/baseline/`
 - **After location**: `docs/screenshots/after/`
+- **Side menu states**: `docs/screenshots/after/home_sidemenu_open_1440x1000.png`, `docs/screenshots/after/home_sidemenu_collapsed_1440x1000.png`, `docs/screenshots/after/home_sidemenu_open_390x844.png`, `docs/screenshots/after/home_sidemenu_collapsed_390x844.png`
 - **Reference location**: `docs/screenshots/reference/`
 
 ---
 
 ## Identified Discrepancies & Resolutions
 
-1. **Brand Identity vs. Reference Product Content**
+1. **Header Breadcrumb Text Format**
+   - *Discrepancy*: Baseline header breadcrumb used slash separators and sentence-case labels.
+   - *Resolution*: Updated to `flexirule > ...` lowercase text style with `>` separator matching ERPNext reference layout.
+
+2. **Sticky Side Menu Collapsible Behavior**
+   - *Discrepancy*: Baseline homepage lacked a dedicated side navigation menu.
+   - *Resolution*: Added `StickySideMenu.astro` component featuring section numbers, active link scroll highlighting, and expand/collapse button toggle.
+
+3. **Brand Identity vs. Reference Product Content**
    - *Discrepancy*: The reference page showcases ERPNext v16 release videos, module lists (Accounting, HR, Stock), and Frappe Cloud pricing.
-   - *Resolution*: Adapted layout structure, typography, section kickers, card grids, and FAQ accordions from the reference while retaining FlexiRule's visual workflow builder, business automation messaging, and comparison library.
-
-2. **FAQ Section Addition**
-   - *Discrepancy*: Baseline FlexiRule site did not feature an FAQ section like the reference page.
-   - *Resolution*: Implemented an FAQ section on the homepage matching Frappe's details/summary accordion style and answering common FlexiRule questions.
-
-3. **Responsive Mobile Spacing**
-   - *Discrepancy*: On 320px and 390px screens, wide feature cards and builder scenes were previously causing horizontal overflow.
-   - *Resolution*: Added fluid clamp padding, responsive grid fallbacks (`grid-template-columns: 1fr`), and overflow clipping on `#main-content`.
+   - *Resolution*: Adapted layout structure, typography, section kickers, card grids, side menu, and FAQ accordions from the reference while retaining FlexiRule's visual workflow builder, business automation messaging, and comparison library.
 
 ---
 

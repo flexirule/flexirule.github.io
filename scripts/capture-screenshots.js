@@ -17,7 +17,7 @@ const routes = [
   { path: "/comparisons/flexirule-vs-custom-hooks/", name: "comparison-custom-hooks" },
 ];
 
-const mode = process.argv[2] || "baseline"; // "baseline", "after", or "reference"
+const mode = process.argv[2] || "after"; // "baseline", "after", or "reference"
 const targetDir = path.join(process.cwd(), "docs", "screenshots", mode);
 
 fs.mkdirSync(targetDir, { recursive: true });
@@ -32,7 +32,7 @@ async function captureScreenshots() {
       const page = await browser.newPage({ viewport: { width: vp.width, height: vp.height } });
       try {
         await page.goto(refUrl, { waitUntil: "domcontentloaded", timeout: 30000 });
-        await page.waitForTimeout(3000); // wait for images/fonts to settle
+        await page.waitForTimeout(3000);
         const filename = `reference_${vp.name}.png`;
         await page.screenshot({ path: path.join(targetDir, filename), fullPage: true });
         console.log(`Saved reference screenshot: ${filename}`);
@@ -51,9 +51,27 @@ async function captureScreenshots() {
         try {
           await page.goto(`${baseUrl}${route.path}`, { waitUntil: "networkidle", timeout: 15000 });
           await page.waitForTimeout(300);
+
+          // General full page screenshot
           const filename = `${route.name}_${vp.name}.png`;
           await page.screenshot({ path: path.join(targetDir, filename), fullPage: true });
           console.log(`Saved ${mode} screenshot: ${filename}`);
+
+          // Specifically on home route, capture side menu expanded and collapsed states
+          if (route.path === "/" && (vp.name === "1440x1000" || vp.name === "390x844")) {
+            const toggleBtn = page.locator("[data-side-menu-toggle]");
+            if (await toggleBtn.count() > 0) {
+              // Capture open state screenshot viewport
+              await page.screenshot({ path: path.join(targetDir, `${route.name}_sidemenu_open_${vp.name}.png`) });
+              console.log(`Saved sidemenu open screenshot: ${route.name}_sidemenu_open_${vp.name}.png`);
+
+              // Toggle collapse
+              await toggleBtn.click();
+              await page.waitForTimeout(200);
+              await page.screenshot({ path: path.join(targetDir, `${route.name}_sidemenu_collapsed_${vp.name}.png`) });
+              console.log(`Saved sidemenu collapsed screenshot: ${route.name}_sidemenu_collapsed_${vp.name}.png`);
+            }
+          }
         } catch (err) {
           console.error(`Failed to capture ${route.path} at ${vp.name}:`, err);
         } finally {
