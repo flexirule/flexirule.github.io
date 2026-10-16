@@ -3,13 +3,21 @@ import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import "../styles/global.css";
 
+interface Breadcrumb { label: string; href?: string; }
 interface Props {
   title: string;
   description: string;
   ogImage?: string;
   noindex?: boolean;
+  breadcrumbs?: Breadcrumb[];
 }
-const { title, description, ogImage = "/og/flexirule-social.svg", noindex = false } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = "/og/flexirule-social.svg",
+  noindex = false,
+  breadcrumbs = [{ label: "Home" }],
+} = Astro.props;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
 const socialImageUrl = new URL(ogImage, Astro.site ?? Astro.url).toString();
 const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
@@ -20,11 +28,26 @@ const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#ffffff" />
+    <script is:inline>
+      try {
+        const savedTheme = localStorage.getItem("flexirule-theme");
+        const initialTheme = savedTheme === "light" || savedTheme === "dark"
+          ? savedTheme
+          : window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = initialTheme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", initialTheme === "dark" ? "#10111b" : "#ffffff");
+      } catch {
+        document.documentElement.dataset.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+    </script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="author" content="FlexiRule contributors" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet" />
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/flexirule-mark.svg" />
     <link rel="apple-touch-icon" href="/flexirule-mark.svg" />
@@ -44,8 +67,12 @@ const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <SiteHeader />
-    <main id="main-content"><slot /></main>
-    <SiteFooter />
+    <div class="site-shell">
+      <SiteHeader breadcrumbs={breadcrumbs} />
+      <div class="site-content-shell">
+        <main id="main-content"><slot /></main>
+        <SiteFooter />
+      </div>
+    </div>
   </body>
 </html>

@@ -12,11 +12,18 @@ export function getStaticPaths() {
 const { comparison } = Astro.props;
 ---
 
-<BaseLayout title={comparison.title} description={comparison.description}>
+<BaseLayout
+  title={comparison.title}
+  description={comparison.description}
+  breadcrumbs={[
+    { label: "Home", href: "/" },
+    { label: "Comparisons", href: "/comparisons/" },
+    { label: comparison.title },
+  ]}
+>
   <article class="comparison-article">
     <header class="comparison-hero">
       <div class="container comparison-hero-inner">
-        <div class="breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/comparisons/">Comparisons</a><span aria-hidden="true">/</span><span>{comparison.title}</span></div>
         <p class="section-kicker">{comparison.eyebrow}</p>
         <h1>{comparison.headline}</h1>
         <p class="comparison-intro">{comparison.introduction}</p>
