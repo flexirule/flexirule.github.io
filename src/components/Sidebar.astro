@@ -54,7 +54,7 @@ const navGroups: NavGroup[] = [
 ];
 ---
 
-<aside class="site-sidebar" data-site-sidebar>
+<aside id="site-sidebar" class="site-sidebar" data-site-sidebar>
   <div class="sidebar-inner">
     <div class="sidebar-brand-row">
       <a class="sidebar-brand" href="/" aria-label="FlexiRule home">
@@ -144,6 +144,7 @@ const navGroups: NavGroup[] = [
   const backdrop = document.querySelector<HTMLButtonElement>("[data-mobile-backdrop]");
   const closeBtn = document.querySelector<HTMLButtonElement>("[data-sidebar-close]");
   const pinBtn = document.querySelector<HTMLButtonElement>("[data-sidebar-pin]");
+  const menuToggle = document.querySelector<HTMLButtonElement>("[data-sidebar-toggle]");
 
   // Restore expanded state on desktop if previously expanded
   try {
@@ -164,10 +165,16 @@ const navGroups: NavGroup[] = [
   };
 
   pinBtn?.addEventListener("click", toggleDesktopSidebar);
+  if (!window.matchMedia("(max-width: 860px)").matches) {
+    menuToggle?.setAttribute("aria-expanded", String(sidebar?.classList.contains("is-expanded") ?? false));
+  }
 
   const closeMobileSidebar = () => {
     document.body.classList.remove("mobile-sidebar-open");
     document.documentElement.classList.remove("mobile-sidebar-open");
+    if (window.matchMedia("(max-width: 860px)").matches) {
+      menuToggle?.setAttribute("aria-expanded", "false");
+    }
   };
 
   backdrop?.addEventListener("click", closeMobileSidebar);

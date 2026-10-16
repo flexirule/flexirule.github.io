@@ -24,8 +24,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: package-lock.json
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
       - name: Type and Astro checks
         run: npm run check
       - name: Build static website
