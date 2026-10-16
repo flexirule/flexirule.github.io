@@ -41,7 +41,7 @@ const isComparisons = pathname.startsWith("/comparisons");
           <a href="/comparisons/"><span class="nav-menu-icon">⇄</span><span><b>Architecture choices</b><small>Compare FlexiRule with native approaches.</small></span></a>
         </div>
       </details>
-      <a class:list={["nav-link", { "is-active": isComparisons }]} href="/comparisons/">Comparisons</a>
+      <a class:list={["nav-link", { "is-active": isComparisons }]} href="/comparisons/" aria-current={isComparisons ? "page" : undefined}>Comparisons</a>
       <details class="nav-dropdown">
         <summary>Resources <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg></summary>
         <div class="nav-dropdown-panel">
@@ -63,29 +63,35 @@ const isComparisons = pathname.startsWith("/comparisons");
   </div>
 </header>
 
+
+<button class="mobile-nav-backdrop" type="button" data-mobile-nav-backdrop aria-label="Close navigation" tabindex="-1"></button>
+
 <div class="breadcrumb-bar">
   <div class="container breadcrumb-inner">
-    <nav class="page-breadcrumbs" aria-label="Breadcrumb">
-      {breadcrumbs.map((item, index) => (
-        <>
-          {index > 0 && <span class="breadcrumb-separator" aria-hidden="true">/</span>}
-          {item.href && index < breadcrumbs.length - 1
-            ? <a href={item.href}>{item.label}</a>
-            : <span aria-current="page">{item.label}</span>}
-        </>
-      ))}
+    <nav aria-label="Breadcrumb">
+      <ol class="page-breadcrumbs">
+        {breadcrumbs.map((item, index) => (
+          <li>
+            {item.href && index < breadcrumbs.length - 1
+              ? <a href={item.href}>{item.label}</a>
+              : <span aria-current="page">{item.label}</span>}
+          </li>
+        ))}
+      </ol>
     </nav>
-    <span class="breadcrumb-context">VISUAL BUSINESS AUTOMATION FOR FRAPPE</span>
+    <span class="breadcrumb-context">Visual business automation for Frappe</span>
   </div>
 </div>
 
 <script>
   const navToggle = document.querySelector<HTMLButtonElement>("[data-mobile-nav-toggle]");
   const primaryNav = document.querySelector<HTMLElement>("#primary-navigation");
-  const closeMobileNav = () => {
+  const navBackdrop = document.querySelector<HTMLButtonElement>("[data-mobile-nav-backdrop]");
+  const closeMobileNav = (restoreFocus = false) => {
     document.body.classList.remove("mobile-nav-open");
     navToggle?.setAttribute("aria-expanded", "false");
     navToggle?.setAttribute("aria-label", "Open navigation");
+    if (restoreFocus && !window.matchMedia("(min-width: 1025px)").matches) navToggle?.focus();
   };
   navToggle?.addEventListener("click", () => {
     const isOpen = navToggle.getAttribute("aria-expanded") === "true";
@@ -93,6 +99,7 @@ const isComparisons = pathname.startsWith("/comparisons");
     navToggle.setAttribute("aria-expanded", String(!isOpen));
     navToggle.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
   });
+  navBackdrop?.addEventListener("click", () => closeMobileNav());
   primaryNav?.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
     link.addEventListener("click", () => {
       closeMobileNav();
@@ -106,11 +113,11 @@ const isComparisons = pathname.startsWith("/comparisons");
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
-      closeMobileNav();
+      closeMobileNav(true);
       primaryNav?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach((menu) => { menu.open = false; });
     }
   });
-  window.matchMedia("(min-width: 981px)").addEventListener("change", (event) => {
+  window.matchMedia("(min-width: 1025px)").addEventListener("change", (event) => {
     if (event.matches) closeMobileNav();
   });
 
