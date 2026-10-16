@@ -39,16 +39,24 @@ const pageTitle = title.includes("FlexiRule") ? title : `${title} | FlexiRule`;
     <meta name="color-scheme" content="light dark" />
     <meta name="theme-color" content="#ffffff" />
     <script is:inline>
-      try {
-        localStorage.removeItem("flexirule-theme");
-      } catch {}
-      const applySystemTheme = () => {
-        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const theme = isDark ? "dark" : "light";
-        document.documentElement.dataset.theme = theme;
-        document.querySelector('meta[name="theme-color"]')?.setAttribute("content", isDark ? "#111111" : "#ffffff");
-      };
-      applySystemTheme();
+      (() => {
+        const preference = window.matchMedia("(prefers-color-scheme: dark)");
+        const applySystemTheme = () => {
+          const theme = preference.matches ? "dark" : "light";
+          document.documentElement.dataset.theme = theme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute(
+            "content",
+            theme === "dark" ? "#111111" : "#ffffff",
+          );
+        };
+
+        applySystemTheme();
+        if (preference.addEventListener) {
+          preference.addEventListener("change", applySystemTheme);
+        } else {
+          preference.addListener(applySystemTheme);
+        }
+      })();
     </script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
