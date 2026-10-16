@@ -1,182 +1,25 @@
 ---
-interface Breadcrumb { label: string; href?: string; }
-interface Props { breadcrumbs?: Breadcrumb[]; }
-const { breadcrumbs = [{ label: "Home" }] } = Astro.props;
-const pathname = Astro.url.pathname;
-const isComparisons = pathname.startsWith("/comparisons");
+import Sidebar from "./Sidebar.astro";
+import TopHeader from "./TopHeader.astro";
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+const { breadcrumbs = [] } = Astro.props;
 ---
 
-<header class="site-header" data-site-header>
-  <div class="container nav-wrap">
-    <a class="site-brand" href="/" aria-label="FlexiRule home">
-      <img src="/flexirule-mark.svg" alt="" width="40" height="40" />
-      <span>Flexi<span class="brand-accent">Rule</span></span>
-    </a>
-
-    <button
-      class="mobile-nav-toggle"
-      type="button"
-      data-mobile-nav-toggle
-      aria-controls="primary-navigation"
-      aria-expanded="false"
-      aria-label="Open navigation"
-    >
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-    </button>
-
-    <nav id="primary-navigation" class="primary-navigation" aria-label="Main navigation">
-      <details class="nav-dropdown">
-        <summary>Product <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg></summary>
-        <div class="nav-dropdown-panel">
-          <a href="/#features"><span class="nav-menu-icon">01</span><span><b>Features</b><small>Explore visual rule building, branching, and tracing.</small></span></a>
-          <a href="/#how-it-works"><span class="nav-menu-icon">02</span><span><b>How it works</b><small>From triggers to a governed execution path.</small></span></a>
-          <a href="/#built-for-frappe"><span class="nav-menu-icon">03</span><span><b>Built for Frappe</b><small>Designed to complement the framework.</small></span></a>
-        </div>
-      </details>
-      <details class="nav-dropdown">
-        <summary>Solutions <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg></summary>
-        <div class="nav-dropdown-panel nav-dropdown-panel-wide">
-          <a href="/#features"><span class="nav-menu-icon">↗</span><span><b>Business workflows</b><small>Make conditions and actions easy to follow.</small></span></a>
-          <a href="/#how-it-works"><span class="nav-menu-icon">◇</span><span><b>Developer experience</b><small>Understand the flow without losing code.</small></span></a>
-          <a href="/comparisons/"><span class="nav-menu-icon">⇄</span><span><b>Architecture choices</b><small>Compare FlexiRule with native approaches.</small></span></a>
-        </div>
-      </details>
-      <a class:list={["nav-link", { "is-active": isComparisons }]} href="/comparisons/" aria-current={isComparisons ? "page" : undefined}>Comparisons</a>
-      <details class="nav-dropdown">
-        <summary>Resources <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg></summary>
-        <div class="nav-dropdown-panel">
-          <a href="https://github.com/Sendipad/flexirule-docs" target="_blank" rel="noreferrer"><span class="nav-menu-icon">↗</span><span><b>Documentation</b><small>Guides and implementation details.</small></span></a>
-          <a href="https://github.com/Sendipad/flexirule" target="_blank" rel="noreferrer"><span class="nav-menu-icon">⌘</span><span><b>Source code</b><small>Explore the project on GitHub.</small></span></a>
-          <a href="https://github.com/Sendipad/flexirule/issues" target="_blank" rel="noreferrer"><span class="nav-menu-icon">?</span><span><b>Community & support</b><small>Report an issue or join development.</small></span></a>
-        </div>
-      </details>
-    </nav>
-
-    <div class="nav-actions">
-      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme" title="Switch theme">
-        <svg data-theme-icon viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-        <span class="theme-toggle-label" data-theme-label>Theme</span>
-      </button>
-      <a class="nav-github" href="https://github.com/Sendipad/flexirule" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-      <a class="button button-primary nav-cta" href="https://github.com/Sendipad/flexirule#installation">Get started <span aria-hidden="true">↗</span></a>
+<div class="app-layout" data-app-layout>
+  <Sidebar />
+  <div class="main-container">
+    <TopHeader breadcrumbs={breadcrumbs} />
+    <div class="content-wrapper">
+      <slot />
     </div>
   </div>
-</header>
-
-
-<button class="mobile-nav-backdrop" type="button" data-mobile-nav-backdrop aria-label="Close navigation" tabindex="-1"></button>
-
-<div class="breadcrumb-bar">
-  <div class="container breadcrumb-inner">
-    <nav aria-label="Breadcrumb">
-      <ol class="page-breadcrumbs">
-        {breadcrumbs.map((item, index) => (
-          <li>
-            {item.href && index < breadcrumbs.length - 1
-              ? <a href={item.href}>{item.label}</a>
-              : <span aria-current="page">{item.label}</span>}
-          </li>
-        ))}
-      </ol>
-    </nav>
-    <span class="breadcrumb-context">Visual business automation for Frappe</span>
-  </div>
 </div>
-
-<script>
-  const navToggle = document.querySelector<HTMLButtonElement>("[data-mobile-nav-toggle]");
-  const primaryNav = document.querySelector<HTMLElement>("#primary-navigation");
-  const navBackdrop = document.querySelector<HTMLButtonElement>("[data-mobile-nav-backdrop]");
-  const closeMobileNav = (restoreFocus = false) => {
-    document.body.classList.remove("mobile-nav-open");
-    navToggle?.setAttribute("aria-expanded", "false");
-    navToggle?.setAttribute("aria-label", "Open navigation");
-    if (restoreFocus && !window.matchMedia("(min-width: 1025px)").matches) navToggle?.focus();
-  };
-  navToggle?.addEventListener("click", () => {
-    const isOpen = navToggle.getAttribute("aria-expanded") === "true";
-    document.body.classList.toggle("mobile-nav-open", !isOpen);
-    navToggle.setAttribute("aria-expanded", String(!isOpen));
-    navToggle.setAttribute("aria-label", isOpen ? "Open navigation" : "Close navigation");
-  });
-  navBackdrop?.addEventListener("click", () => closeMobileNav());
-  primaryNav?.querySelectorAll<HTMLAnchorElement>("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      closeMobileNav();
-      primaryNav.querySelectorAll<HTMLDetailsElement>("details[open]").forEach((menu) => { menu.open = false; });
-    });
-  });
-  document.addEventListener("click", (event) => {
-    if (event.target instanceof Element && !event.target.closest(".nav-dropdown")) {
-      primaryNav?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach((menu) => { menu.open = false; });
-    }
-  });
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      closeMobileNav(true);
-      primaryNav?.querySelectorAll<HTMLDetailsElement>("details[open]").forEach((menu) => { menu.open = false; });
-    }
-  });
-  window.matchMedia("(min-width: 1025px)").addEventListener("change", (event) => {
-    if (event.matches) closeMobileNav();
-  });
-
-  const themeButton = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
-  const themeLabel = document.querySelector<HTMLElement>("[data-theme-label]");
-  const themeIcon = document.querySelector<SVGElement>("[data-theme-icon]");
-  const themePreference = window.matchMedia("(prefers-color-scheme: dark)");
-  const readSavedTheme = (): "light" | "dark" | null => {
-    try {
-      const value = window.localStorage.getItem("flexirule-theme");
-      return value === "light" || value === "dark" ? value : null;
-    } catch {
-      return null;
-    }
-  };
-  const saveTheme = (theme: "light" | "dark") => {
-    try {
-      window.localStorage.setItem("flexirule-theme", theme);
-    } catch {
-      // Theme switching still works for this page when storage is unavailable.
-    }
-  };
-  const applyTheme = (theme: "light" | "dark") => {
-    document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme === "dark" ? "#111111" : "#ffffff");
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    themeButton?.setAttribute("aria-label", `Switch to ${nextTheme} theme`);
-    themeButton?.setAttribute("title", `Switch to ${nextTheme} theme`);
-    if (themeLabel) themeLabel.textContent = theme === "dark" ? "Dark" : "Light";
-    if (themeIcon) {
-      themeIcon.innerHTML = theme === "dark"
-        ? '<path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>'
-        : '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/>';
-    }
-  };
-  applyTheme(readSavedTheme() ?? (themePreference.matches ? "dark" : "light"));
-  themeButton?.addEventListener("click", () => {
-    const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-    saveTheme(nextTheme);
-    applyTheme(nextTheme);
-  });
-  themePreference.addEventListener("change", (event) => {
-    if (!readSavedTheme()) applyTheme(event.matches ? "dark" : "light");
-  });
-
-  const revealTargets = document.querySelectorAll<HTMLElement>(
-    ".hero-copy, .builder-scene, .intro-grid, .section-heading, .feature-card, .process-copy, .process-step, .fit-panel, .comparison-card, .cta-inner, .page-hero-inner, .comparison-hero-inner, .comparison-body-grid, .takeaway-panel"
-  );
-  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    revealTargets.forEach((target) => { target.dataset.reveal = "pending"; });
-    document.documentElement.classList.add("motion-ready");
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          (entry.target as HTMLElement).dataset.reveal = "visible";
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-    revealTargets.forEach((target) => revealObserver.observe(target));
-  }
-</script>
