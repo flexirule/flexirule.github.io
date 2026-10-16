@@ -509,6 +509,23 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .comparison-principle p { color: var(--text-secondary); }
 .principle-mark { background: var(--surface-warm); color: var(--text-primary); }
 
+.site-footer .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+.site-footer .brand img { width: 38px; height: 38px; object-fit: contain; }
+.site-footer .brand-word {
+  color: var(--text-primary);
+  font-size: 23px;
+  font-weight: 760;
+  letter-spacing: -.075em;
+  line-height: 1;
+}
+.site-footer .brand-word span { color: inherit; }
+.footer-brand p { max-width: 420px; margin-top: 16px; }
 /* Strong, monochrome final call-to-action and quieter footer */
 .final-cta { padding: clamp(60px, 8vw, 105px) 0; background: #171717; color: #fff; }
 .cta-inner { gap: 48px; }
