@@ -93,7 +93,7 @@ const navGroups: NavGroup[] = [
           return (
             <li class="nav-group-item">
               <details class="nav-group-details" open={isGroupActive}>
-                <summary class="nav-group-summary" aria-expanded={isGroupActive ? "true" : "false"}>
+                <summary class="nav-group-summary">
                   <span class="group-icon-wrap" title={group.title}>
                     <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" set:html={group.icon} />
                   </span>
