@@ -465,6 +465,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
 .feature-card:hover { transform: translateY(-3px); border-color: var(--border-strong); box-shadow: 0 15px 36px rgb(0 0 0 / 4%); }
 .feature-card-large, .feature-card-wide { background: var(--surface); }
 .feature-icon { border-radius: 6px; }
+.icon-blue, .icon-violet { color: var(--brand-accent); background: var(--brand-accent-soft); }
+.icon-red { color: #d85e5e; background: color-mix(in srgb, #d85e5e 14%, var(--surface)); }
+.icon-dark { color: var(--text-secondary); background: var(--surface-warm); }
 .feature-label { color: var(--text-muted); font-size: 9px; letter-spacing: .12em; }
 .feature-card h3 { color: var(--text-primary); font-size: clamp(20px, 2vw, 25px); font-weight: 630; letter-spacing: -.045em; line-height: 1.2; }
 .feature-card > p:not(.feature-label), .feature-card-wide > div > p:not(.feature-label) { color: var(--text-secondary); font-size: 13px; line-height: 1.8; }
@@ -745,7 +748,6 @@ html.motion-ready [data-reveal="visible"] { opacity: 1; transform: translateY(0)
 
 
 /* Theme-aware colors for the illustrative RuleFlow preview. */
-.window-dots i { background: var(--border-strong); }
 .builder-title, .node-copy b, .floating-note b, .sidebar-bottom { color: var(--text-primary); }
 .builder-menu, .sidebar-cap, .side-row, .sidebar-bottom small,
 .canvas-label, .canvas-label span, .canvas-legend, .node-copy small,
