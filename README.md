@@ -5,7 +5,7 @@ The source for the FlexiRule public marketing website, built with Astro and inte
 ## Stack
 
 - Astro 7 + TypeScript 5.9 (kept within the supported peer range of `@astrojs/check`)
-- Static HTML generation with the Astro sitemap integration
+- Statically generated HTML with a data-driven sitemap endpoint
 - Custom FlexiRule styling; no off-the-shelf marketing theme
 - GitHub Actions for pull-request validation and GitHub Pages deployment
 
@@ -34,11 +34,12 @@ The generated website is written to `dist/`.
 - `src/pages/comparisons/index.astro`: comparison library
 - `src/pages/comparisons/[slug].astro`: reusable, statically generated comparison page
 - `src/data/comparisons.ts`: comparison copy, summaries and metadata
+- `src/pages/sitemap.xml.ts`: generated XML sitemap, using the same comparison data as the pages
 - `src/components/`: reusable site navigation, footer and comparison-card components
 - `src/layouts/BaseLayout.astro`: shared page shell and SEO metadata
 - `src/styles/global.css`: design tokens, layout and responsive styling
 
-Add comparison entries to `src/data/comparisons.ts`; Astro generates a static route for each entry. Keep each page's content and metadata specific to its topic. Avoid unsupported competitor claims, and review technical statements before publication.
+Add comparison entries to `src/data/comparisons.ts`; Astro generates a static route for each entry, and the sitemap endpoint automatically includes it. Keep each page's content and metadata specific to its topic. Avoid unsupported competitor claims, and review technical statements before publication.
 
 ## GitHub Pages
 
@@ -48,8 +49,8 @@ The canonical site URL is configured as `https://flexirule.github.io`. If a cust
 
 ## SEO baseline
 
-The shared layout defines page-specific titles and descriptions, canonical URLs, Open Graph and Twitter metadata. The sitemap integration creates a sitemap during builds; `robots.txt` points crawlers to it. The homepage adds SoftwareApplication structured data. This provides technical SEO foundations, not a guarantee of search rankings.
+The shared layout defines page-specific titles and descriptions, canonical URLs, Open Graph and Twitter metadata. The sitemap endpoint emits an XML sitemap at build time; `robots.txt` points crawlers to it. The homepage adds SoftwareApplication structured data. This provides technical SEO foundations, not a guarantee of search rankings.
 
 ## Brand assets
 
-The supplied FlexiRule mark is represented as a compact vector in `public/flexirule-mark.svg`. The social card is maintained at `public/og/flexirule-social.svg`.
+The FlexiRule mark is represented as a compact vector in `public/flexirule-mark.svg`. The social card is maintained at `public/og/flexirule-social.svg`.
