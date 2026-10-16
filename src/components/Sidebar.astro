@@ -172,7 +172,9 @@ const navGroups: NavGroup[] = [
   const closeMobileSidebar = () => {
     document.body.classList.remove("mobile-sidebar-open");
     document.documentElement.classList.remove("mobile-sidebar-open");
-    menuToggle?.setAttribute("aria-expanded", "false");
+    if (window.matchMedia("(max-width: 860px)").matches) {
+      menuToggle?.setAttribute("aria-expanded", "false");
+    }
   };
 
   backdrop?.addEventListener("click", closeMobileSidebar);
